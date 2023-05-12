@@ -24,10 +24,9 @@ const reducer = (state, { type, payload }) => {
           overwrite: false,
         };
       }
-       
+
       if (payload.digit === "0" && state.currentOperand === "0") return state;
-      if (payload.digit === "." && state.currentOperand === '.')
-        return state;
+      if (payload.digit === "." && state.currentOperand === ".") return state;
 
       return {
         ...state,
@@ -104,7 +103,7 @@ const reducer = (state, { type, payload }) => {
         currentOperand: evaluate(state),
       };
 
-      default:
+    default:
   }
 };
 
@@ -129,8 +128,8 @@ function evaluate({ currentOperand, previousOperand, operation }) {
     case "/":
       computation = prev / current;
       break;
-      
-      default :
+
+    default:
   }
   return computation.toString();
 }
@@ -166,12 +165,15 @@ const App = () => {
       </div>
 
       <button
-        className="span-two"
+        className="span-two allClear"
         onClick={() => dispatch({ type: ACTIONS.CLEAR })}
       >
         AC
       </button>
-      <button onClick={() => dispatch({ type: ACTIONS.DELETE_DIGIT })}>
+      <button
+        onClick={() => dispatch({ type: ACTIONS.DELETE_DIGIT })}
+        className="DeleteBtn"
+      >
         DEL
       </button>
       <OperationButton operation="/" dispatch={dispatch} />
@@ -193,7 +195,7 @@ const App = () => {
       <DigitButton digit="." dispatch={dispatch} />
       <DigitButton digit="0" dispatch={dispatch} />
       <button
-        className="span-two"
+        className="span-two equal"
         onClick={() => dispatch({ type: ACTIONS.EVALUATE })}
       >
         =
